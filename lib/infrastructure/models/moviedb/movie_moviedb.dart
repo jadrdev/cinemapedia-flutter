@@ -64,6 +64,5 @@ class MovieMovieDB {
         "vote_average": voteAverage,
         "vote_count": voteCount,
     };
-    
 }
 
