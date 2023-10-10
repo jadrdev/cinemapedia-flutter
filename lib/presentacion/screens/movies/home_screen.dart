@@ -28,15 +28,71 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMovieProvider.notifier).loadNextPage();
+    ref.read(topRatedMovieProvider.notifier).loadNextPage();
+    ref.read(upComingMovieProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
-    return Column(
-      children: [
-        const CustomAppBar(),
-        MoviesSlideshow(movies: slideShowMovies)
+    final popularMovies = ref.watch(popularMovieProvider);
+    final topRated = ref.watch(topRatedMovieProvider);
+    final upComing = ref.watch(upComingMovieProvider);
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
+            title: CustomAppBar(),
+          ),
+        ),
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Column(
+              children: [
+                // const
+                MoviesSlideshow(movies: slideShowMovies),
+                MovieHorizontalListView(
+                  movies: nowPlayingMovies,
+                  title: 'En Cines',
+                  subtitle: 'Lunes 9',
+                  loadNextPage: () {
+                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                  },
+                ),
+                MovieHorizontalListView(
+                  movies: upComing,
+                  title: 'Próximamente',
+                  subtitle: 'Lunes 9',
+                  loadNextPage: () {
+                    ref.read(upComingMovieProvider.notifier).loadNextPage();
+                  },
+                ),
+                MovieHorizontalListView(
+                  movies: popularMovies,
+                  title: 'Populares',
+                  loadNextPage: () {
+                    ref.read(popularMovieProvider.notifier).loadNextPage();
+                  },
+                ),
+                MovieHorizontalListView(
+                  movies: topRated,
+                  title: 'Mejor Valoradas',
+                  subtitle: 'Desde Siempre',
+                  loadNextPage: () {
+                    ref.read(topRatedMovieProvider.notifier).loadNextPage();
+                  },
+                ),
+                const SizedBox(height: 10)
+              ],
+            );
+          },
+          childCount: 1,
+        ))
       ],
     );
   }
