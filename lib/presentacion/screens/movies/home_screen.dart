@@ -1,4 +1,4 @@
-import 'package:cinemapedia/presentacion/providers/providers.dart';
+import 'package:cinemapedia/presentacion/providers/movies_providers.dart';
 import 'package:cinemapedia/presentacion/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,11 +35,16 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+ 
+    final initialLoading = ref.watch(initialLoadingProviders);
+    if (initialLoading) return const FullScreenLoader();
+
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final popularMovies = ref.watch(popularMovieProvider);
     final topRated = ref.watch(topRatedMovieProvider);
     final upComing = ref.watch(upComingMovieProvider);
+
     return CustomScrollView(
       slivers: [
         const SliverAppBar(
