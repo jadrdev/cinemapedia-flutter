@@ -62,7 +62,7 @@ class MovieDBDataSource extends MoviesDataSource {
   }
 
   @override
-  Future<Movie> getMovieById(int id) async {
+  Future<Movie> getMovieById(String id) async {
     final response = await dio.get('/movie/$id');
     if (response.statusCode != 200) throw Exception();
 
