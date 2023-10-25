@@ -9,7 +9,7 @@ class CustomNavigationBar extends StatelessWidget {
       elevation: 0,
       items: const [
       BottomNavigationBarItem(
-          icon: Icon(Icons.home_max), label: 'Inicio'),
+          icon: Icon(Icons.home_max), label: 'Peliculas & Series'),
       BottomNavigationBarItem(
           icon: Icon(Icons.label_outline), label: 'Categorías'),
        BottomNavigationBarItem(

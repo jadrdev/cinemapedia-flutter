@@ -17,7 +17,7 @@ class SerieMapper {
       popularity: seriedb.popularity,
       posterPath: seriedb.posterPath != ''
           ? "https://image.tmdb.org/t/p/w500${seriedb.posterPath}"
-          : "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/fb3ef66312333.5691dd2253378.jpg",
+          : "no-poster",
       voteAverage: seriedb.voteAverage,
       voteCount: seriedb.voteCount);
 }
